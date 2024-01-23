@@ -1,21 +1,39 @@
 #include <stdio.h>
-int main(){
-    int arr[] = {1, 2, 3 , 4, 6, 8, 15, 38, 99};
-    int size = sizeof(arr)/sizeof(arr[0]);
-    int key = 3;
-    int low = 0, high = size;
+int binarySearch(int arr[], int size, int key){
+    int low = 0;
+    int high = size;
     int mid;
-    while(low < high){
-        mid = (low+high)/2;
+    while(low <= high){
+        mid = (low + (high - low))/2;
 
         if(key == arr[mid]){
+            return mid;
             break;
         }
-        if(key < arr[mid]){
-            high = mid-1;
-        }else{
+        if(key > arr[mid]){
             low = mid+1;
+        }else{
+            high = mid-1;
         }
+
     }
-    printf("Position of key %d is %d\n", key,  mid);
+    return -1;
+}
+int main(){
+    int size;
+    scanf("%d", &size);
+
+    int arr[size];
+
+    for(int i = 0; i < size; i++){
+        scanf("%d", &arr[i]);
+    }
+    int key;
+    scanf("%d", &key);
+    int result = binarySearch(arr, size, key);
+    if(result == -1){
+        printf("Element not found!");
+    }else{
+        printf("Element found at location at %d", result);
+    }
 }
